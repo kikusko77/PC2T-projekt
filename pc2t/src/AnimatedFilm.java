@@ -17,4 +17,9 @@ public class AnimatedFilm extends Film {
     public int getRecommendedAge() {
         return recommendedAge;
     }
+
+    public void  setRecommendedAge(int recommendedAge){
+        this.recommendedAge= this.recommendedAge;
+    }
+
 }

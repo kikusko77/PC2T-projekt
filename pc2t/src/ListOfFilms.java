@@ -57,19 +57,76 @@ public class ListOfFilms {
     }
     public  void  editFilm() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter movie title to edit: ");
+        System.out.println("Enter film title to edit: ");
+        String titleToEdit = input.nextLine();
+
+        if (filmMap.containsKey(titleToEdit)) {
+            Film filmToEdit = filmMap.get(titleToEdit);
+            System.out.println("Choose what to edit: ");
+            System.out.println("1. Director");
+            System.out.println("2. Release year");
+            System.out.println("3. Actors/Animators");
+
+            int choice = input.nextInt();
+            input.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter new director: ");
+                    String newDirector = input.nextLine();
+                    filmToEdit.setDirector(newDirector);
+                    System.out.println("Director updated successfully.");
+                    break;
+                case 2:
+                    System.out.println("Enter new release year: ");
+                    int newReleaseYear = input.nextInt();
+                    input.nextLine();
+                    filmToEdit.setReleaseYear(newReleaseYear);
+                    System.out.println("Release year updated successfully.");
+                    break;
+                case 3:
+                    ArrayList<String> newActorsOrAnimators = new ArrayList<String>();
+                    if (filmToEdit instanceof AnimatedFilm) {
+                        System.out.println("Enter recommended age for the viewer: ");
+                        int recommendedAge = input.nextInt();
+                        input.nextLine();
+                        ((AnimatedFilm) filmToEdit).setRecommendedAge(recommendedAge);
+                        System.out.println("Recommended age updated successfully.");
+                    }
+
+                    System.out.println("Enter new list of actors/animators (separated by commas): ");
+                    String actorsOrAnimators = input.nextLine();
+                    String[] actorsOrAnimatorsArray = actorsOrAnimators.split(",");
+                    for (String actorOrAnimator : actorsOrAnimatorsArray) {
+                        newActorsOrAnimators.add(actorOrAnimator.trim());
+                    }
+                    filmToEdit.setActorsOrAnimators(newActorsOrAnimators);
+                    System.out.println("Actors/Animators updated successfully.");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
+            }
+        } else {
+            System.out.println("Movie not found.");
+        }
     }
 
-    public  void  deleteFilm(){
 
+    public void deleteFilm() {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Enter movie title to delete: ");
-        filmMap.remove(input.nextLine());
+        String titleToDelete = input.nextLine();
 
-
-        System.out.println("Movie not found.");
+        if (filmMap.containsKey(titleToDelete)) {
+            filmMap.remove(titleToDelete);
+            System.out.println("Movie deleted.");
+        } else {
+            System.out.println("Movie not found.");
+        }
     }
+
 
     public  void displayFilms(){
         System.out.println("Movies: ");

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Film {
     private String title;
     private String director;
@@ -19,5 +21,19 @@ public abstract class Film {
 
     public int getReleaseYear() {
         return releaseYear;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public void setActorsOrAnimators(ArrayList<String> newActorsOrAnimators) {
     }
 }

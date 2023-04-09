@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
         int select;
         Scanner sc = new Scanner(System.in);
+        ListOfFilms list = new ListOfFilms();
 
 
         while (true) {
@@ -23,7 +24,7 @@ public class Main {
 
             select = sc.nextInt();
             sc.nextLine();
-            ListOfFilms list = new ListOfFilms();
+
 
             switch (select) {
                 case 1:

@@ -24,7 +24,7 @@ public class Rating {
             throw new Exception("Film can be rated only with 1 to 10 stars!");
     }
 
-    public boolean addRating(Film film, int stars) {
+    public boolean tryAddRating(Film film, int stars) {
         if (film instanceof FeatureFilm) {
             try {
                 setStarsFeaturedFilm(stars);

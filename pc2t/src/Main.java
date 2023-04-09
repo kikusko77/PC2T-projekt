@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         int select;
         Scanner sc = new Scanner(System.in);
-        ListOfFilms listOfFilms = new ListOfFilms();
+
 
         while (true) {
             System.out.println("1. Add new film");
@@ -28,15 +28,15 @@ public class Main {
             switch (select) {
                 case 1:
 
-                    listOfFilms.addFilm();
+                    list.addFilm();
 
                     break;
                 case 2:
-                    listOfFilms.editFilm();
+                    list.editFilm();
 
                     break;
                 case 3:
-                    listOfFilms.deleteFilm();
+                    list.deleteFilm();
 
                     break;
                 case 4:
@@ -54,7 +54,7 @@ public class Main {
                         System.out.println();
                     break;
                 case 5:
-                    listOfFilms.displayFilms();
+                    list.displayFilms();
 
                     break;
                 case 6:

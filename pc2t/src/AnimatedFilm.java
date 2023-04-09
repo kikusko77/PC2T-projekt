@@ -1,25 +1,36 @@
-import java.util.List;
+import java.util.ArrayList;
 
 public class AnimatedFilm extends Film {
-    private List<String> animators;
+    private ArrayList<String> animators;
     private int recommendedAge;
 
-    public AnimatedFilm(String title, String director, int releaseYear, List<String> animators, int recommendedAge) {
+    public AnimatedFilm(String title, String director, int releaseYear, ArrayList<String> animators, int recommendedAge) {
         super(title, director, releaseYear);
         this.animators = animators;
         this.recommendedAge = recommendedAge;
     }
 
-    public List<String> getAnimators() {
+    public ArrayList<String> getAnimators() {
         return animators;
+    }
+
+    public void setAnimators(ArrayList<String> animators) {
+        this.animators = animators;
     }
 
     public int getRecommendedAge() {
         return recommendedAge;
     }
 
-    public void  setRecommendedAge(int recommendedAge){
-        this.recommendedAge= this.recommendedAge;
+    public void setRecommendedAge(int recommendedAge) {
+        this.recommendedAge = recommendedAge;
     }
 
+    @Override
+    public String toString() {
+        return "AnimatedFilm{" + "title='" + getTitle() + '\'' + ", director='" + getDirector() + '\'' + ", releaseYear=" + getReleaseYear() +
+                ", animators=" + animators +
+                ", recommendedAge=" + recommendedAge +
+                '}';
+    }
 }

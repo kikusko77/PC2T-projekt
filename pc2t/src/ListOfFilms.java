@@ -137,7 +137,7 @@ public class ListOfFilms {
 
 
     public  void displayFilms(){
-        System.out.println("Movies: ");
+        System.out.println("Films: ");
         for (Film film : filmMap.values()) {
             System.out.println(film.toString());
         }

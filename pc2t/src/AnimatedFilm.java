@@ -31,6 +31,6 @@ public class AnimatedFilm extends Film {
         return "AnimatedFilm{" + "title='" + getTitle() + '\'' + ", director='" + getDirector() + '\'' + ", releaseYear=" + getReleaseYear() +
                 ", animators=" + animators +
                 ", recommendedAge=" + recommendedAge +
-                '}'+"Marek hodnotil "+ getRatings()+" hviezdami lebo to bolo napicu";
+                '}'+"Pouzivatel hodnotil "+ getRatings()+" hviezdami";
     }
 }

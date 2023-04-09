@@ -13,6 +13,14 @@ public class ListOfFilms {
         return filmMap;
     }
 
+    public Film getFilm(String filmName){
+        return filmMap.get(filmName);
+    }
+
+    public void addRating(String filmName, Rating rating){
+        filmMap.get(filmName).getRatings().add(rating);
+    }
+
     public void addFilm(){
 
         Scanner input = new Scanner(System.in);

@@ -51,6 +51,9 @@ public class Rating {
                 this.comment = sc.nextLine();
             }
             return true;
+        } else if (film == null){
+            System.out.println("Film not found!");
+            return false;
         } else
             return false;
     }

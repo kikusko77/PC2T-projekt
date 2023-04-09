@@ -22,6 +22,7 @@ public class Main {
             System.out.println("11. Exit app");
 
             select = sc.nextInt();
+            sc.nextLine();
             ListOfFilms list = new ListOfFilms();
 
             switch (select) {
@@ -39,15 +40,18 @@ public class Main {
 
                     break;
                 case 4:
-                    System.out.println("Type name of film, you want to add rating to and number of stars");
+                    System.out.println("Type name of film, you want to add rating to.");
                     String filmName = sc.nextLine();
+                    System.out.println(" and number of stars.");
                     int stars = sc.nextInt();
+                    sc.nextLine();
                     Rating rating = new Rating();
                     if(rating.tryAddRating(list.getFilm(filmName), stars)){
                            list.addRating(filmName, rating);
                            System.out.println("Rating successfully added");
                     } else
-                        System.out.println("Adding of rating aborted!");
+                        System.out.println("\u001B[31m" + "Adding of rating aborted!" + "\u001B[0m");
+                        System.out.println();
                     break;
                 case 5:
                     listOfFilms.displayFilms();

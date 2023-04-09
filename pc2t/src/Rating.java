@@ -29,7 +29,7 @@ public class Rating {
             try {
                 setStarsFeaturedFilm(stars);
             }catch (Exception e){
-                e.getMessage();
+                System.out.println(e.getMessage());
                 return false;
             }
 
@@ -42,12 +42,13 @@ public class Rating {
             try {
                 setStarsAnimatedFilm(stars);
             }catch (Exception e){
-                e.getMessage();
+                System.out.println(e.getMessage());
                 return false;
             }
 
             System.out.println("Do you want to add  an comment? y/n");
             if (sc.next().charAt(0) == 'y') {
+                sc.nextLine();
                 this.comment = sc.nextLine();
             }
             return true;

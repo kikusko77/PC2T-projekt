@@ -9,6 +9,9 @@ public class ListOfFilms {
 
         filmMap = new HashMap<>();
     }
+    public Map<String, Film> getFilmMap() {
+        return filmMap;
+    }
 
     public void addFilm(){
 
@@ -58,6 +61,7 @@ public class ListOfFilms {
     }
 
     public  void  deleteFilm(){
+
         Scanner input = new Scanner(System.in);
 
         System.out.println("Enter movie title to delete: ");

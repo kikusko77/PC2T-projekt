@@ -19,8 +19,7 @@ public class FeatureFilm extends Film {
 
     @Override
     public String toString() {
-        return "Feature film: " + getTitle() + " (" + getReleaseYear() + "), directed by " + getDirector() + ", starring " + String.join(", ", actors)
-                +"Pouzivatel hodnotil "+ getRatings().get(0).getStars() +" hviezdami ";
+        return "Feature film: " + getTitle() + " (" + getReleaseYear() + "), directed by " + getDirector() + ", starring " + String.join(", ", actors);
 
     }
 }

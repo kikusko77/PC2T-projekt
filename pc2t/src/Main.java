@@ -41,6 +41,7 @@ public class Main {
 
                     break;
                 case 4:
+
                     System.out.println("Type name of film, you want to add rating to.");
                     String filmName = sc.nextLine();
                     System.out.println(" and number of stars.");
@@ -53,12 +54,16 @@ public class Main {
                     } else
                         System.out.println("\u001B[31m" + "Adding of rating aborted!" + "\u001B[0m");
                         System.out.println();
+
                     break;
                 case 5:
                     list.displayFilms();
 
                     break;
                 case 6:
+
+                    System.out.println("Type name of film you are looking for");
+                    list.filmSearch(sc.nextLine());
 
                     break;
                 case 7:

@@ -53,14 +53,9 @@ public abstract class Film {
     public void setActorsOrAnimators(ArrayList<String> newActorsOrAnimators) {
     }
 
-    public void filmInfo(Film film){
-        if (film instanceof FeatureFilm){
-            System.out.println(((FeatureFilm)film).toString());
-        } else if (film instanceof AnimatedFilm){
-            System.out.println(((AnimatedFilm)film).toString());
-        } else {
-            film.toString();
-        }
+    public void filmInfo(){
+        System.out.println(this.toString());
+
         System.out.println();
         for (Rating r : ratings) {
             System.out.println(r.toString());

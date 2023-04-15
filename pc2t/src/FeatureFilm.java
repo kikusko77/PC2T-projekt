@@ -16,6 +16,15 @@ public class FeatureFilm extends Film {
     public void setActors(ArrayList<String> actors) {
         this.actors = actors;
     }
+    @Override
+    public boolean searchForName(String name) {
+        for (String actorOrAnimator : actors) {
+            if (actorOrAnimator.equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {

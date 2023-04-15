@@ -142,6 +142,37 @@ public class ListOfFilms {
             System.out.println(film.toString());
         }
     }
+    public void listActorsOrAnimatorsWithMultipleFilms() {
+        // Map to store actors/animators and the films they worked on
+        Map<String, List<String>> actorOrAnimatorToFilms = new HashMap<>();
+
+        // Iterate over all films
+        for (Film film : filmMap.values()) {
+            // Iterate over all actors/animators in the film
+            for (String actorOrAnimator : film.getActorsOrAnimators()) {
+                // If actor/animators already exists in the map, add the film to their list
+                if (actorOrAnimatorToFilms.containsKey(actorOrAnimator)) {
+                    actorOrAnimatorToFilms.get(actorOrAnimator).add(film.getTitle());
+                } else { // Otherwise, add a new entry to the map
+                    List<String> films = new ArrayList<>();
+                    films.add(film.getTitle());
+                    actorOrAnimatorToFilms.put(actorOrAnimator, films);
+                }
+            }
+        }
+
+        // Iterate over all entries in the map and print out actors/animators with multiple films
+        System.out.println("Actors/Animators who worked on multiple films: ");
+        for (Map.Entry<String, List<String>> entry : actorOrAnimatorToFilms.entrySet()) {
+            if (entry.getValue().size() > 1) { // Check if actor/animator worked on more than 1 film
+                System.out.println(entry.getKey() + ": ");
+                for (String filmTitle : entry.getValue()) {
+                    System.out.println("- " + filmTitle);
+                }
+            }
+        }
+    }
+
 
 
 

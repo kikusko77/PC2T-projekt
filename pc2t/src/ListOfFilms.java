@@ -173,7 +173,9 @@ public class ListOfFilms {
         }
     }
 
-
+    public void filmSerach(String name){
+        filmMap.get(name).filmInfo();
+    }
 
 
 

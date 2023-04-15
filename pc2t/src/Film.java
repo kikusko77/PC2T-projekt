@@ -44,4 +44,8 @@ public abstract class Film {
 
     public void setActorsOrAnimators(ArrayList<String> newActorsOrAnimators) {
     }
+
+    public<T> void filmInfo(T film){
+
+    }
 }

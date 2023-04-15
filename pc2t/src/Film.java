@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class Film {
@@ -55,8 +57,19 @@ public abstract class Film {
 
     public void filmInfo(){
         System.out.println(this.toString());
-
         System.out.println();
+
+        Collections.sort(ratings, new Comparator<Rating>() {
+            @Override
+            public int compare(Rating r1, Rating r2) {
+                if(r1.getStars() > r2.getStars())
+                    return -1;
+                else if(r1.getStars() < r2.getStars())
+                    return 1;
+                else
+                    return 0;
+            }
+        });
         for (Rating r : ratings) {
             System.out.println(r.toString());
         }

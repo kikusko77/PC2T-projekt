@@ -35,6 +35,7 @@ public class Rating {
 
             System.out.println("Do you want to add  an comment? y/n");
             if (sc.next().charAt(0) == 'y') {
+                sc.nextLine();
                 this.comment = sc.nextLine();
             }
             return true;

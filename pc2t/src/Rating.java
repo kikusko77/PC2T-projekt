@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Rating {
     private int stars;
-    private String comment;
+    private String comment = null;
     Scanner sc = new Scanner(System.in);
 
     public int getStars() {
@@ -57,5 +57,14 @@ public class Rating {
             return false;
         } else
             return false;
+    }
+
+    @Override
+    public String toString(){
+        if(comment == null){
+            return "Rated: " + stars + " stars.";
+        }else {
+            return "Rated: " + stars + " stars,  comment: " + comment;
+        }
     }
 }

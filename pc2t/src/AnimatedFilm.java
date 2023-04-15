@@ -27,10 +27,21 @@ public class AnimatedFilm extends Film {
     }
 
     @Override
+    public boolean searchForName(String name) {
+        for (String actorOrAnimator : animators) {
+            if (actorOrAnimator.equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "AnimatedFilm {" + "title='" + getTitle() + '\'' + ", director='" + getDirector() + '\'' + ", releaseYear=" + getReleaseYear() +
                 ", animators=" + animators +
                 ", recommendedAge=" + recommendedAge +
                 '}';
     }
+
 }

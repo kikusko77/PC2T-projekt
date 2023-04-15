@@ -75,5 +75,6 @@ public abstract class Film {
         }
     }
 
+    public abstract boolean searchForName(String name);
 
 }

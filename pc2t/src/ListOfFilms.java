@@ -180,7 +180,17 @@ public class ListOfFilms {
             System.out.println("Film not found!");
     }
 
-
+    public void filmSearchByActorOrAnimator(String name){
+        int count = 0;
+        for(Film films : filmMap.values()){
+            if(films.searchForName(name)){
+                System.out.println(films.toString());
+                count++;
+            }
+        }
+        if(count == 0)
+            System.out.println("Na match found.");
+    }
 
 }
 

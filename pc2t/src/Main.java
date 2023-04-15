@@ -71,6 +71,8 @@ public class Main {
                     break;
                 case 8:
 
+                    System.out.println("Type name of actor or animator to show filtered film list");
+                    list.filmSearchByActorOrAnimator(sc.nextLine());
                     break;
                 case 9:
 

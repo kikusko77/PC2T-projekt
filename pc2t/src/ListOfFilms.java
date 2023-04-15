@@ -174,7 +174,10 @@ public class ListOfFilms {
     }
 
     public void filmSearch(String name){
-        filmMap.get(name).filmInfo();
+        if(filmMap.get(name) != null)
+            filmMap.get(name).filmInfo();
+        else
+            System.out.println("Film not found!");
     }
 
 

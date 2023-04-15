@@ -28,7 +28,7 @@ public class AnimatedFilm extends Film {
 
     @Override
     public String toString() {
-        return "AnimatedFilm{" + "title='" + getTitle() + '\'' + ", director='" + getDirector() + '\'' + ", releaseYear=" + getReleaseYear() +
+        return "AnimatedFilm {" + "title='" + getTitle() + '\'' + ", director='" + getDirector() + '\'' + ", releaseYear=" + getReleaseYear() +
                 ", animators=" + animators +
                 ", recommendedAge=" + recommendedAge +
                 '}';

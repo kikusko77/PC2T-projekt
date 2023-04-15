@@ -18,19 +18,8 @@ public class FeatureFilm extends Film {
     }
 
     @Override
-    public boolean searchForName(String name) {
-        for (String actorOrAnimator : actors) {
-            if (actorOrAnimator.equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public String toString() {
-        return "Featured film {" + "title='" + getTitle() + '\'' + ", director='" + getDirector() + '\'' + ", releaseYear=" + getReleaseYear() +
-                ", staring=" + actors +
-                '}';
+        return "Feature film: " + getTitle() + " (" + getReleaseYear() + "), directed by " + getDirector() + ", starring " + String.join(", ", actors);
+
     }
 }

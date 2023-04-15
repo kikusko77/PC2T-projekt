@@ -67,6 +67,7 @@ public class Main {
 
                     break;
                 case 7:
+                    list.listPeopleWithMultipleFilms();
 
                     break;
                 case 8:

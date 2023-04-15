@@ -142,55 +142,92 @@ public class ListOfFilms {
             System.out.println(film.toString());
         }
     }
-    public void listActorsOrAnimatorsWithMultipleFilms() {
-        // Map to store actors/animators and the films they worked on
-        Map<String, List<String>> actorOrAnimatorToFilms = new HashMap<>();
+    public void listPeopleWithMultipleFilms() {
+        ArrayList<String> animators = new ArrayList<>();
+        HashMap<String, ArrayList<String>> actorFilmsMap = new HashMap<>();
+        ArrayList<String> processed = new ArrayList<>();
 
-        // Iterate over all films
         for (Film film : filmMap.values()) {
-            // Iterate over all actors/animators in the film
-            for (String actorOrAnimator : film.getActorsOrAnimators()) {
-                // If actor/animators already exists in the map, add the film to their list
-                if (actorOrAnimatorToFilms.containsKey(actorOrAnimator)) {
-                    actorOrAnimatorToFilms.get(actorOrAnimator).add(film.getTitle());
-                } else { // Otherwise, add a new entry to the map
-                    List<String> films = new ArrayList<>();
-                    films.add(film.getTitle());
-                    actorOrAnimatorToFilms.put(actorOrAnimator, films);
+            if (film instanceof AnimatedFilm) {
+                AnimatedFilm animatedFilm = (AnimatedFilm) film;
+                for (String animator : animatedFilm.getAnimators()) {
+                    if (!processed.contains(animator)) {
+                        boolean found = false;
+                        for (Film otherFilm : filmMap.values()) {
+                            if (otherFilm instanceof AnimatedFilm && !film.equals(otherFilm)) {
+                                AnimatedFilm otherAnimatedFilm = (AnimatedFilm) otherFilm;
+                                if (otherAnimatedFilm.getAnimators().contains(animator) && !film.getTitle().equals(otherFilm.getTitle())) {
+                                    found = true;
+                                    break;
+                                }
+                            } else if (otherFilm instanceof FeatureFilm && !film.equals(otherFilm)) {
+                                FeatureFilm featureFilm = (FeatureFilm) otherFilm;
+                                if (featureFilm.getActors().contains(animator) && !film.getTitle().equals(otherFilm.getTitle())) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (found) {
+                            animators.add(animator);
+                        }
+                        processed.add(animator);
+                    }
+                }
+            } else if (film instanceof FeatureFilm) {
+                FeatureFilm featureFilm = (FeatureFilm) film;
+                for (String actor : featureFilm.getActors()) {
+                    if (!processed.contains(actor)) {
+                        boolean found = false;
+                        ArrayList<String> films = new ArrayList<>();
+                        for (Film otherFilm : filmMap.values()) {
+                            if (otherFilm instanceof FeatureFilm && !film.equals(otherFilm)) {
+                                FeatureFilm otherFeatureFilm = (FeatureFilm) otherFilm;
+                                if (otherFeatureFilm.getActors().contains(actor) && !film.getTitle().equals(otherFilm.getTitle())) {
+                                    found = true;
+                                    films.add(otherFeatureFilm.getTitle());
+                                }
+                            } else if (otherFilm instanceof AnimatedFilm && !film.equals(otherFilm)) {
+                                AnimatedFilm animatedFilm = (AnimatedFilm) otherFilm;
+                                if (animatedFilm.getAnimators().contains(actor) && !film.getTitle().equals(otherFilm.getTitle())) {
+                                    found = true;
+                                    films.add(otherFilm.getTitle());
+                                }
+                            }
+                        }
+                        if (found) {
+                            actorFilmsMap.put(actor, films);
+                        }
+                        processed.add(actor);
+                    }
                 }
             }
         }
 
-        // Iterate over all entries in the map and print out actors/animators with multiple films
-        System.out.println("Actors/Animators who worked on multiple films: ");
-        for (Map.Entry<String, List<String>> entry : actorOrAnimatorToFilms.entrySet()) {
-            if (entry.getValue().size() > 1) { // Check if actor/animator worked on more than 1 film
-                System.out.println(entry.getKey() + ": ");
-                for (String filmTitle : entry.getValue()) {
-                    System.out.println("- " + filmTitle);
+        if (animators.isEmpty() && actorFilmsMap.isEmpty()) {
+            System.out.println("No animators or actors worked on multiple films.");
+        } else {
+            if (!animators.isEmpty()) {
+                System.out.println("Animators who worked on multiple films:");
+                for (String animator : animators) {
+                    System.out.println(animator);
+                }
+            }
+            if (!actorFilmsMap.isEmpty()) {
+                System.out.println("Actors who worked on multiple films:");
+                for (Map.Entry<String, ArrayList<String>> entry : actorFilmsMap.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
                 }
             }
         }
     }
 
-    public void filmSearch(String name){
-        if(filmMap.get(name) != null)
-            filmMap.get(name).filmInfo();
-        else
-            System.out.println("Film not found!");
+
+    public void filmSerach(String name){
+        filmMap.get(name).filmInfo();
     }
 
-    public void filmSearchByActorOrAnimator(String name){
-        int count = 0;
-        for(Film films : filmMap.values()){
-            if(films.searchForName(name)){
-                System.out.println(films.toString());
-                count++;
-            }
-        }
-        if(count == 0)
-            System.out.println("Na match found.");
-    }
+
 
 }
 

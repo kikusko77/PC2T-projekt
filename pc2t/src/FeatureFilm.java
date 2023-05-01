@@ -16,6 +16,12 @@ public class FeatureFilm extends Film {
     public void setActors(ArrayList<String> actors) {
         this.actors = actors;
     }
+
+    @Override
+    public List<String> getActorsOrAnimators() {
+        return actors;
+    }
+
     @Override
     public boolean searchForName(String name) {
         for (String actorOrAnimator : actors) {
@@ -29,6 +35,5 @@ public class FeatureFilm extends Film {
     @Override
     public String toString() {
         return "Feature film: " + getTitle() + " (" + getReleaseYear() + "), directed by " + getDirector() + ", starring " + String.join(", ", actors);
-
     }
 }

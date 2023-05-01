@@ -1,7 +1,9 @@
+import java.io.IOException;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.io.File;
+import java.io.FileWriter;
 public class ListOfFilms {
     private Map<String, Film> filmMap;
 
@@ -143,84 +145,41 @@ public class ListOfFilms {
         }
     }
     public void listPeopleWithMultipleFilms() {
-        ArrayList<String> animators = new ArrayList<>();
-        HashMap<String, ArrayList<String>> actorFilmsMap = new HashMap<>();
-        ArrayList<String> processed = new ArrayList<>();
+        Set<String> animators = new HashSet<>();
+        Map<String, Set<String>> actors = new HashMap<>();
 
         for (Film film : filmMap.values()) {
-            if (film instanceof AnimatedFilm) {
-                AnimatedFilm animatedFilm = (AnimatedFilm) film;
-                for (String animator : animatedFilm.getAnimators()) {
-                    if (!processed.contains(animator)) {
-                        boolean found = false;
-                        for (Film otherFilm : filmMap.values()) {
-                            if (otherFilm instanceof AnimatedFilm && !film.equals(otherFilm)) {
-                                AnimatedFilm otherAnimatedFilm = (AnimatedFilm) otherFilm;
-                                if (otherAnimatedFilm.getAnimators().contains(animator) && !film.getTitle().equals(otherFilm.getTitle())) {
-                                    found = true;
-                                    break;
-                                }
-                            } else if (otherFilm instanceof FeatureFilm && !film.equals(otherFilm)) {
-                                FeatureFilm featureFilm = (FeatureFilm) otherFilm;
-                                if (featureFilm.getActors().contains(animator) && !film.getTitle().equals(otherFilm.getTitle())) {
-                                    found = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (found) {
-                            animators.add(animator);
-                        }
-                        processed.add(animator);
-                    }
+            Set<String> currentAnimators = new HashSet<>(((AnimatedFilm) film).getAnimators());
+            Set<String> currentActors = new HashSet<>(((FeatureFilm) film).getActors());
+
+            for (String animator : currentAnimators) {
+                if (animators.contains(animator)) {
+                    System.out.println("Animator who worked on multiple films: " + animator);
+                } else {
+                    animators.add(animator);
                 }
-            } else if (film instanceof FeatureFilm) {
-                FeatureFilm featureFilm = (FeatureFilm) film;
-                for (String actor : featureFilm.getActors()) {
-                    if (!processed.contains(actor)) {
-                        boolean found = false;
-                        ArrayList<String> films = new ArrayList<>();
-                        for (Film otherFilm : filmMap.values()) {
-                            if (otherFilm instanceof FeatureFilm && !film.equals(otherFilm)) {
-                                FeatureFilm otherFeatureFilm = (FeatureFilm) otherFilm;
-                                if (otherFeatureFilm.getActors().contains(actor) && !film.getTitle().equals(otherFilm.getTitle())) {
-                                    found = true;
-                                    films.add(otherFeatureFilm.getTitle());
-                                }
-                            } else if (otherFilm instanceof AnimatedFilm && !film.equals(otherFilm)) {
-                                AnimatedFilm animatedFilm = (AnimatedFilm) otherFilm;
-                                if (animatedFilm.getAnimators().contains(actor) && !film.getTitle().equals(otherFilm.getTitle())) {
-                                    found = true;
-                                    films.add(otherFilm.getTitle());
-                                }
-                            }
-                        }
-                        if (found) {
-                            actorFilmsMap.put(actor, films);
-                        }
-                        processed.add(actor);
-                    }
+            }
+
+            for (String actor : currentActors) {
+                if (actors.containsKey(actor)) {
+                    actors.get(actor).add(film.getTitle());
+                } else {
+                    actors.put(actor, new HashSet<>(Collections.singletonList(film.getTitle())));
                 }
             }
         }
 
-        if (animators.isEmpty() && actorFilmsMap.isEmpty()) {
-            System.out.println("No animators or actors worked on multiple films.");
-        } else {
-            if (!animators.isEmpty()) {
-                System.out.println("Animators who worked on multiple films:");
-                for (String animator : animators) {
-                    System.out.println(animator);
-                }
-            }
-            if (!actorFilmsMap.isEmpty()) {
-                System.out.println("Actors who worked on multiple films:");
-                for (Map.Entry<String, ArrayList<String>> entry : actorFilmsMap.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                }
+        for (Map.Entry<String, Set<String>> entry : actors.entrySet()) {
+            if (entry.getValue().size() > 1) {
+                System.out.println("Actor who worked on multiple films: " + entry.getKey() + " - Films: " + entry.getValue());
             }
         }
+
+        if (animators.isEmpty() && actors.isEmpty()) {
+            System.out.println("No animators or actors worked on multiple films.");
+        }
     }
+
 
 
     public void filmSearch(String name){
@@ -241,6 +200,72 @@ public class ListOfFilms {
         if(count == 0)
             System.out.println("Na match found.");
 
+    }
+    public void exportFilms(String filePath) throws IOException {
+        FileWriter writer = new FileWriter(filePath);
+        StringBuilder sb = new StringBuilder();
+
+        // Add header row
+        sb.append("Title,Director,Release Year,Actors/Animators,Recommended Age,Rating\n");
+
+        // Add film data
+        for (Film film : filmMap.values()) {
+            sb.append(film.getTitle()).append(",")
+                    .append(film.getDirector()).append(",")
+                    .append(film.getReleaseYear()).append(",")
+                    .append(String.join("|", film.getActorsOrAnimators())).append(",");
+
+            if (film instanceof AnimatedFilm) {
+                sb.append(((AnimatedFilm) film).getRecommendedAge()).append(",");
+            } else {
+                sb.append("N/A,");
+            }
+
+            if (film.getRatings() == null) {
+                sb.append("N/A,N/A\n");
+            } else {
+                sb.append(film.getRatings()).append(",");
+
+            }
+        }
+
+        writer.write(sb.toString());
+        writer.close();
+    }
+
+
+
+
+    public void importFilmFromFile(String films) {
+        try {
+            Scanner scanner = new Scanner(new File(films));
+            String line = "";
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                String[] parts = line.split(";");
+                if (parts.length < 5) {
+                    System.out.println("Skipping invalid line: " + line);
+                    continue;
+                }
+                String type = parts[0];
+                String title = parts[1];
+                String director = parts[2];
+                int releaseYear = Integer.parseInt(parts[3]);
+                String[] actorsOrAnimators = parts[4].split(",");
+                if (type.equals("animated")) {
+                    int recommendedAge = Integer.parseInt(parts[5]);
+                    filmMap.put(title, new AnimatedFilm(title, director, releaseYear, new ArrayList<>(Arrays.asList(actorsOrAnimators)), recommendedAge));
+                } else {
+                    filmMap.put(title, new FeatureFilm(title, director, releaseYear, new ArrayList<>(Arrays.asList(actorsOrAnimators))));
+                }
+            }
+
+            scanner.close();
+            System.out.println("Films imported successfully from file: " + films);
+        } catch (IOException e) {
+            System.out.println("Error importing films from file: " + films);
+            e.printStackTrace();
+        }
     }
 
 

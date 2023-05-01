@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class AnimatedFilm extends Film {
     private ArrayList<String> animators;
@@ -16,6 +17,10 @@ public class AnimatedFilm extends Film {
 
     public void setAnimators(ArrayList<String> animators) {
         this.animators = animators;
+    }
+    @Override
+    public List<String> getActorsOrAnimators() {
+        return animators;
     }
 
     public int getRecommendedAge() {

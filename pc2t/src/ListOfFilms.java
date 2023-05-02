@@ -35,6 +35,10 @@ public class ListOfFilms {
         DbContext.sqlQuaries.add(sql);
     }
 
+    public void addRatingFromDb(String filmName, Rating rating) {
+        filmMap.get(filmName).getRatings().add(rating);
+    }
+
 
 
     public void addFilm(){
@@ -172,17 +176,11 @@ public class ListOfFilms {
         if (filmMap.containsKey(titleToDelete)) {
             filmMap.remove(titleToDelete);
             System.out.println("Movie deleted.");
+
+            DbContext.sqlQuaries.add("DELETE FROM `basicinfo` WHERE `Title` = '" + titleToDelete + "'");
+
         } else {
             System.out.println("Movie not found.");
-        }
-
-        if (DbContext.connection != null) {
-
-            PreparedStatement preparedStatement = DbContext.connection.prepareStatement("DELETE FROM `basicinfo` WHERE `Title` = ?");
-            preparedStatement.setString(1, titleToDelete);
-            DbContext.sqlQuaries.add(preparedStatement.toString());
-            System.out.println(preparedStatement.toString());
-
         }
     }
 

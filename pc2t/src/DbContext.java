@@ -73,7 +73,7 @@ public class DbContext {
                     Rating rating = new Rating();
                     rating.setStars(resultRatings.getInt("Stars"));
                     rating.setComment(resultRatings.getString("Comment"));
-                    list.addRating(title, rating);
+                    list.addRatingFromDb(title, rating);
                 }
 
             }

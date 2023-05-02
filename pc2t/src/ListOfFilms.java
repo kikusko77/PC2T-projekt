@@ -21,6 +21,7 @@ public class ListOfFilms {
     }
 
     public void addRating(String filmName, Rating rating) {
+        filmMap.get(filmName).getRatings().add(rating);
         Film film = filmMap.get(filmName);
         film.getRatings().add(rating);
 

@@ -17,6 +17,10 @@ public class FeatureFilm extends Film {
         this.actors = actors;
     }
     @Override
+    public List<String> getActorsOrAnimators() {
+        return actors;
+    }
+    @Override
     public boolean searchForName(String name) {
         for (String actorOrAnimator : actors) {
             if (actorOrAnimator.equals(name)) {

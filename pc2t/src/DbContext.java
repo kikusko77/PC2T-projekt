@@ -6,7 +6,7 @@ public class DbContext {
     static String user = "root";
     static String password = "";
     static Connection connection;
-    static ArrayList<String> sql = new ArrayList();
+    static ArrayList<String> sqlQuaries = new ArrayList();
 
     public static void LoadFromDb(ListOfFilms list){
         if(!DbConnect()){
@@ -73,6 +73,26 @@ public class DbContext {
         } finally {
             DbDisconnect();
         }
+    }
+
+    public static void SaveToDb(){
+        if(!DbConnect()){
+            return;
+        }
+
+        int rowsAffected = 0;
+
+        for (String sql : sqlQuaries){
+            try {
+                Statement statement = connection.createStatement();
+                rowsAffected += statement.executeUpdate(sql);
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Affected rows: " + rowsAffected);
+        DbDisconnect();
     }
     public static boolean DbConnect() {
         try {

@@ -89,6 +89,7 @@ public class Main {
 
                     break;
                 case 11:
+                    DbContext.SaveToDb();
 
                     break;
             }

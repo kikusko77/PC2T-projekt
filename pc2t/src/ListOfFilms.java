@@ -61,13 +61,13 @@ public class ListOfFilms {
                 actorsOrAnimators.add(animator.trim());
             }
             filmMap.put(title ,new AnimatedFilm(title, director, releaseYear, actorsOrAnimators, recommendedAge));
-            DbContext.sql.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', '" + recommendedAge + "', '" + movieType + "')");
+            DbContext.sqlQuaries.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', '" + recommendedAge + "', '" + movieType + "')");
 
             return;
         }
 
         filmMap.put(title, new FeatureFilm(title, director, releaseYear, actorsOrAnimators));
-        DbContext.sql.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', '" + null + "', '" + movieType + "')");
+        DbContext.sqlQuaries.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', NULL, '" + movieType + "')");
     }
 
     public void addFilmFromDb(int movieType, String title, String director, int releaseYear, int recommendedAge, String actors, String animators){

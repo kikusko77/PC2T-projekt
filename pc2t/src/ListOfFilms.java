@@ -47,8 +47,11 @@ public class ListOfFilms {
             System.out.println("Enter list of actors (separated by commas): ");
             String actors = input.nextLine();
             String[] actorsArray = actors.split(",");
+            DbContext.sqlQuaries.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', NULL, '" + movieType + "')");
             for (String actor : actorsArray) {
                 actorsOrAnimators.add(actor.trim());
+                DbContext.sqlQuaries.add("INSERT INTO actors VALUES ('" + actor.trim() +"')");
+                DbContext.sqlQuaries.add("INSERT INTO filmactors VALUES ('"+ title + "', '" + actor.trim() +"')");
             }
         } else if (movieType == 2) {
             System.out.println("Enter recommended age for the viewer: ");
@@ -57,17 +60,17 @@ public class ListOfFilms {
             System.out.println("Enter list of animators (separated by commas): ");
             String animators = input.nextLine();
             String[] animatorsArray = animators.split(",");
+            DbContext.sqlQuaries.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', '" + recommendedAge + "', '" + movieType + "')");
             for (String animator : animatorsArray) {
                 actorsOrAnimators.add(animator.trim());
+                DbContext.sqlQuaries.add("INSERT INTO aimators VALUES ('" + animator.trim() +"')");
+                DbContext.sqlQuaries.add("INSERT INTO filmanimators VALUES ('"+ title + "', '" + animator.trim() +"')");
             }
             filmMap.put(title ,new AnimatedFilm(title, director, releaseYear, actorsOrAnimators, recommendedAge));
-            DbContext.sqlQuaries.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', '" + recommendedAge + "', '" + movieType + "')");
-
             return;
         }
 
         filmMap.put(title, new FeatureFilm(title, director, releaseYear, actorsOrAnimators));
-        DbContext.sqlQuaries.add("INSERT INTO basicinfo VALUES ('" + title + "', '" + director + "', '" + releaseYear + "', NULL, '" + movieType + "')");
     }
 
     public void addFilmFromDb(int movieType, String title, String director, int releaseYear, int recommendedAge, String actors, String animators){

@@ -9,13 +9,7 @@ public class DbContext {
     static ArrayList<String> sqlQuaries = new ArrayList();
 
 
-    public DbContext() {
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public static void LoadFromDb(ListOfFilms list){
         if(!DbConnect()){

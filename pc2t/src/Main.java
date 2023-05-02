@@ -8,6 +8,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ListOfFilms list = new ListOfFilms();
 
+        DbContext.LoadFromDb(list);
+
 
         while (true) {
             System.out.println("1. Add new film");
@@ -28,7 +30,6 @@ public class Main {
 
             switch (select) {
                 case 1:
-
                     list.addFilm();
 
                     break;

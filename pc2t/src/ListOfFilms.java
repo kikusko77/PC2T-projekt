@@ -63,6 +63,26 @@ public class ListOfFilms {
 
         filmMap.put(title, new FeatureFilm(title, director, releaseYear, actorsOrAnimators));
     }
+
+    public void addFilmFromDb(int movieType, String title, String director, int releaseYear, int recommendedAge, String actors, String animators){
+        ArrayList<String> actorsOrAnimators = new ArrayList<String>();
+        if (movieType == 1) {
+            String[] actorsArray = actors.split(",");
+            for (String actor : actorsArray) {
+                actorsOrAnimators.add(actor.trim());
+            }
+        } else if (movieType == 2) {
+            String[] animatorsArray = animators.split(",");
+            for (String animator : animatorsArray) {
+                actorsOrAnimators.add(animator.trim());
+            }
+            filmMap.put(title ,new AnimatedFilm(title, director, releaseYear, actorsOrAnimators, recommendedAge));
+            return;
+        }
+
+        filmMap.put(title, new FeatureFilm(title, director, releaseYear, actorsOrAnimators));
+    }
+
     public  void  editFilm() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter film title to edit: ");
@@ -224,7 +244,6 @@ public class ListOfFilms {
 
 
     public void filmSearch(String name){
-        filmMap.get(name).filmInfo();
         if(filmMap.get(name) != null)
             filmMap.get(name).filmInfo();
         else

@@ -1,7 +1,7 @@
 import java.sql.*;
 
 public class DbContext {
-    static String url = "jdbc:mysql://localhost:3306/films";
+    static String url = "jdbc:mysql:/tmp/mysql.sock";
     static String user = "root";
     static String password = "";
     static Connection connection;

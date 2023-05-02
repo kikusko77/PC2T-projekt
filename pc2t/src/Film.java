@@ -10,12 +10,14 @@ public abstract class Film {
     private String director;
     private int releaseYear;
     private List<Rating> ratings;
+    private List<String> actorsOrAnimators;
 
     public Film(String title, String director, int releaseYear) {
         this.title = title;
         this.director = director;
         this.releaseYear = releaseYear;
         this.ratings = new ArrayList<>();
+        this.actorsOrAnimators = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -33,6 +35,12 @@ public abstract class Film {
     public List<Rating> getRatings() {
         return ratings;
     }
+
+    public List<String> getActorsOrAnimators() {
+        return actorsOrAnimators;
+    }
+
+
 
     public void setTitle(String title) {
         this.title = title;

@@ -30,7 +30,7 @@ public class ListOfFilms {
                     "VALUES ('" + filmName + "', " + rating.getStars() + ", NULL)";
         } else {
             sql = "INSERT INTO ratings (title, stars, comment) " +
-                    "VALUES ('" + filmName + "', " + rating.getStars() + ", " + rating.getComment() + ")";
+                    "VALUES ('" + filmName + "', " + rating.getStars() + ", '" + rating.getComment() + "')";
         }
         DbContext.sqlQuaries.add(sql);
     }
@@ -181,6 +181,7 @@ public class ListOfFilms {
             PreparedStatement preparedStatement = DbContext.connection.prepareStatement("DELETE FROM `basicinfo` WHERE `Title` = ?");
             preparedStatement.setString(1, titleToDelete);
             DbContext.sqlQuaries.add(preparedStatement.toString());
+            System.out.println(preparedStatement.toString());
 
         }
     }

@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -162,7 +163,7 @@ public class ListOfFilms {
     }
 
 
-    public void deleteFilm() {
+    public void deleteFilm() throws SQLException {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Enter movie title to delete: ");
@@ -174,7 +175,17 @@ public class ListOfFilms {
         } else {
             System.out.println("Movie not found.");
         }
+
+        if (DbContext.connection != null) {
+
+            PreparedStatement preparedStatement = DbContext.connection.prepareStatement("DELETE FROM `basicinfo` WHERE `Title` = ?");
+            preparedStatement.setString(1, titleToDelete);
+            DbContext.sqlQuaries.add(preparedStatement.toString());
+
+        }
     }
+
+
 
 
     public  void displayFilms(){

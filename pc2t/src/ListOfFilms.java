@@ -23,15 +23,15 @@ public class ListOfFilms {
 
     public void addRating(String filmName, Rating rating) {
         filmMap.get(filmName).getRatings().add(rating);
-        Film film = filmMap.get(filmName);
-        film.getRatings().add(rating);
 
-        String title = film.getTitle();
-        int stars = rating.getStars();
-        String comment = rating.getComment() != null ? "'" + rating.getComment() + "'" : "NULL";
-
-        String sql = "INSERT INTO ratings (title, stars, comment) " +
-                "VALUES ('" + title + "', " + stars + ", " + comment + ")";
+        String sql;
+        if (rating.getComment() == null){
+            sql = "INSERT INTO ratings (title, stars, comment) " +
+                    "VALUES ('" + filmName + "', " + rating.getStars() + ", NULL)";
+        } else {
+            sql = "INSERT INTO ratings (title, stars, comment) " +
+                    "VALUES ('" + filmName + "', " + rating.getStars() + ", " + rating.getComment() + ")";
+        }
         DbContext.sqlQuaries.add(sql);
     }
 

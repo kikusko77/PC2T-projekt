@@ -1,10 +1,12 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DbContext {
     static String url = "jdbc:mysql://localhost:3306/films";
     static String user = "root";
     static String password = "";
     static Connection connection;
+    static ArrayList<String> sql = new ArrayList();
 
     public static void LoadFromDb(ListOfFilms list){
         if(!DbConnect()){

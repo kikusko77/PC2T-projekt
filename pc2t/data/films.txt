@@ -1,0 +1,2 @@
+Title,Director,Release Year,Actors/Animators,Recommended Age,Rating
+skuska,vut,2023,jan|pavol|peter,18,[Rated: 4 stars,  comment: vyborny film],

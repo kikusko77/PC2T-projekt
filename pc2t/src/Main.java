@@ -1,9 +1,10 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 // Press ⇧ twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int select;
         Scanner sc = new Scanner(System.in);
         ListOfFilms list = new ListOfFilms();
@@ -70,6 +71,7 @@ public class Main {
                 case 7:
                     list.listPeopleWithMultipleFilms();
 
+
                     break;
                 case 8:
 
@@ -77,9 +79,13 @@ public class Main {
                     list.filmSearchByActorOrAnimator(sc.nextLine());
                     break;
                 case 9:
+                    String exportFilePath = "./data/films.txt";
+                    list.exportFilms(exportFilePath);
 
                     break;
                 case 10:
+                    String importFilePath = "./data/filmsIn.txt";
+                    list.importFilmFromFile(importFilePath);
 
                     break;
                 case 11:

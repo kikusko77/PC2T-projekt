@@ -20,9 +20,21 @@ public class ListOfFilms {
         return filmMap.get(filmName);
     }
 
-    public void addRating(String filmName, Rating rating){
+    public void addRating(String filmName, Rating rating) {
         filmMap.get(filmName).getRatings().add(rating);
+        Film film = filmMap.get(filmName);
+        film.getRatings().add(rating);
+
+        String title = film.getTitle();
+        int stars = rating.getStars();
+        String comment = rating.getComment() != null ? "'" + rating.getComment() + "'" : "NULL";
+
+        String sql = "INSERT INTO ratings (title, stars, comment) " +
+                "VALUES ('" + title + "', " + stars + ", " + comment + ")";
+        DbContext.sqlQuaries.add(sql);
     }
+
+
 
     public void addFilm(){
 

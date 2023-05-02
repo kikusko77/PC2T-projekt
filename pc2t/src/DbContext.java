@@ -1,13 +1,16 @@
 import java.sql.*;
 
 public class DbContext {
-    static String url = "jdbc:mysql:/tmp/mysql.sock";
+    static String url = "jdbc:mysql://localhost:3306/films";
     static String user = "root";
     static String password = "";
     static Connection connection;
 
     public static void LoadFromDb(ListOfFilms list){
-        DbConnect();
+        if(!DbConnect()){
+            return;
+        }
+
         try {
 
             String sql = "SELECT * FROM basicinfo";
@@ -69,13 +72,15 @@ public class DbContext {
             DbDisconnect();
         }
     }
-    public static void DbConnect() {
+    public static boolean DbConnect() {
         try {
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to database.");
+            return true;
         } catch (SQLException e) {
             System.out.println("Failed to connect to database.");
             e.printStackTrace();
+            return false;
         }
     }
 
